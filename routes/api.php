@@ -9,9 +9,9 @@ use App\Models\Application;
 use App\Models\Notification;
 use App\Http\Controllers\API\UserController;
 
-// Route::get('/user', function (Request $request) {
-//     return $request->user();
-// })->middleware('auth:sanctum');
+Route::get('/user', function (Request $request) {
+    return $request->user();
+})->middleware('auth:sanctum');
 
 
 Route::get('/users', function () {
@@ -19,26 +19,23 @@ Route::get('/users', function () {
     return response()->json(['status' => 200, 'data' => $users]);
 });
 
-// Route::get('/users/{id}', function ($id) {
-//     $user = User::find($id);
+Route::get('/users/id/{id}', function ($id) {
+    $user = User::find($id);
 
-//     if (!$user) {
-//         return response()->json(['status' => 404, 'message' => 'User ID not found'], 404);
-//     }
+    if (!$user) {
+        return response()->json(['status' => 404, 'message' => 'User ID not found'], 404);
+    }
 
-//     return response()->json(['status' => 200, 'data' => $user]);
-// });
+    return response()->json(['status' => 200, 'data' => $user]);
+});
 
-Route::get('/users/{email}', function ($email) {
-    // Mencari pengguna dengan alamat email yang sesuai
+Route::get('/users/email/{email}', function ($email) {
     $user = User::where('email', $email)->first();
 
-    // Jika tidak ada pengguna yang sesuai, kembalikan respons JSON 404
     if (!$user) {
         return response()->json(['status' => 404, 'message' => 'User not found'], 404);
     }
 
-    // Jika ditemukan, kembalikan data pengguna dalam respons JSON 200
     return response()->json(['status' => 200, 'data' => $user]);
 });
 
